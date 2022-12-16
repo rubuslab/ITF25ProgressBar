@@ -1,4 +1,4 @@
-package com.example.showbar25;
+package com.rubus.ITF25ProgressBar;
 
 import org.junit.Test;
 

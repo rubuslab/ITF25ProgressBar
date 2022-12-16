@@ -3,11 +3,11 @@ plugins {
 }
 
 android {
-    namespace 'com.example.showbar25'
+    namespace 'com.rubus.ITF25ProgressBar'
     compileSdk 32
 
     defaultConfig {
-        applicationId "com.example.showbar25"
+        applicationId "com.rubus.ITF25ProgressBar"
         minSdk 16
         targetSdk 32
         versionCode 1

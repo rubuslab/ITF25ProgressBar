@@ -1,4 +1,4 @@
-package com.example.showbar25;
+package com.rubus.ITF25ProgressBar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
