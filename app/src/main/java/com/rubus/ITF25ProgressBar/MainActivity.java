@@ -21,6 +21,9 @@ public class MainActivity extends AppCompatActivity {
     private TextView mScreenUpdateFps;
     private TextView mBarcodeUpdateFps;
 
+    // ITF25ProgressBarView
+    ITF25ProgressBarView mItf25ProgressBar;
+
     SeekBar mSeekBarEveryFrames;
     private int mSeekBarMin = 1;
     private int mUpdateBarCodeEveryFrames = 1;
@@ -51,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
         mSwitchShowBar = (Switch) findViewById(R.id.switch_show_bar);
         mScreenUpdateFps = (TextView) findViewById(R.id.text_screen_fps);
         mBarcodeUpdateFps = (TextView) findViewById(R.id.text_barcode_update_fps);
+        mItf25ProgressBar = (ITF25ProgressBarView)findViewById(R.id.itf25_progress_bar_view);
 
         mEveryXFrameUpdateNumber = new Vector<TextView>();
         mEveryXFrameUpdateNumber.add((TextView) findViewById(R.id.tex_every_x_franes_count1));
@@ -169,6 +173,10 @@ public class MainActivity extends AppCompatActivity {
             float updateBarcodeFps = (float)(mUpdateBarcodeCount / duration);
             String fps = String.format("%5.2f", updateBarcodeFps);
             mBarcodeUpdateFps.setText(fps);
+
+            // update progress bar
+            mItf25ProgressBar.SetProgressBarIncreaseOne();
+            mItf25ProgressBar.InvalidateView();
 
             // update barcode
             mBar25View.SetBarNumber(++mBarCodeInteger);

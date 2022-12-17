@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="ITF25ProgressBarView">
+        <attr name="text" format="string" />
+        <attr name="testAttr" format="integer" />
+        <attr name="textSize" format="integer" />
+        <attr name="textColor" format="color" />
+        <attr name="barColor" format="color" />
+        <attr name="barHeaderSpaceColor" format="color" />
+        <attr name="barPaddingBarColor" format="color" />
+        <attr name="barPaddingHead" format="integer" />
+        <attr name="barPaddingTail" format="integer" />
+    </declare-styleable>
+</resources>
