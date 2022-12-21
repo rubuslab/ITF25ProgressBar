@@ -20,14 +20,15 @@ public class ITF25ProgressBarView extends View {
         public boolean isBlackBar = false;
         public boolean isBigBar = false;
     }
-    private final int EMPTY_LEFT_BIG_BARS = 3;
-    private final int EMPTY_RIGHT_BIG_BARS = 2;
+    private final int EMPTY_LEFT_BIG_BARS = 1;
+    private final int EMPTY_RIGHT_BIG_BARS = 1;
 
-    private int mBigBarSmallBarWidthRatio = 3;
+    // private int mBigBarSmallBarWidthRatio = 3;
+    private int mBigBarSmallBarWidthRatio = 2;
     private Vector<Bar> mBars;
 
     // small bar width
-    private int mSmallBarWidth = 7;
+    private int mSmallBarWidth = 21;
     private boolean mIsVerticalBar = true;
     private boolean mBarsInitialized = false;
     private int mValidSmallBars = 0;
@@ -36,7 +37,7 @@ public class ITF25ProgressBarView extends View {
     // bar pos index
     private int mProgressBarStartIndex = 0;
     private int mProgressBarEndIndex = 0;
-    private int mProgressBarIndex = 0;
+    private int mPos = 0;
 
     // padding bars
     private int mBarPaddingHead = 0;
@@ -161,6 +162,8 @@ public class ITF25ProgressBarView extends View {
         int space = mIsVerticalBar ? getWidth() : getHeight();
         int leftRightBarsWidth = (mValidSmallBars + mValidBigBars * mBigBarSmallBarWidthRatio) * mSmallBarWidth;
         int progressSmalleBars = (space - leftRightBarsWidth) / mSmallBarWidth;
+        // need odd-number-x progress small bars: II-1-1-1-1-II
+        progressSmalleBars = (progressSmalleBars % 2 == 0) ? progressSmalleBars - 1 : progressSmalleBars;
 
         mValidSmallBars += progressSmalleBars;
         CheckBarsCapacity(mValidSmallBars + mValidBigBars);
@@ -180,14 +183,12 @@ public class ITF25ProgressBarView extends View {
         UpdateBarByChar(++index, '0');
 
         // progress small white bars
-        mProgressBarStartIndex = index + 2;  // skip first space small white bar
-        mProgressBarIndex = mProgressBarStartIndex;
+        mProgressBarStartIndex = index + 1;
         for (int i = 0; i < progressSmalleBars; ++i) { UpdateBarByChar(++index, '-'); }
         mProgressBarEndIndex = index - 1;  // skip last space small white bar
 
-        // set progress bar
-        Bar pos = mBars.elementAt(mProgressBarIndex);
-        pos.isBlackBar = true;
+        mPos = 0;
+        UpdateBarByChar(mProgressBarStartIndex + 1, '0');
 
         // end bars
         // 0-1-0-1
@@ -273,21 +274,23 @@ public class ITF25ProgressBarView extends View {
         pos = GetPos();
         return pos;
     }
-    public int GetProgressMax() { return mBarsInitialized ? (mProgressBarEndIndex - mProgressBarStartIndex) : 0; }
-    public int GetPos() { return mProgressBarIndex - mProgressBarStartIndex; }
+    // 0-1-2-3...
+    public int GetProgressMax() { return mBarsInitialized ? (mProgressBarEndIndex - mProgressBarStartIndex + 1) / 2 - 1 : 0; }
+    public int GetPos() { return mPos; }
     public void SetPos(int pos) {
         if (!mBarsInitialized) return;
         if (pos < 0) pos = 0;
-        if (pos > GetProgressMax()) pos = 0;
+        int maxPos = GetProgressMax();
+        if (pos > maxPos) pos = 0;
 
-        // reset old pos bar to white
-        Bar oldPosBar = mBars.elementAt(mProgressBarIndex);
-        oldPosBar.isBlackBar = false;
+        // clean
+        if (pos == 0) {
+            for (int i = 1; i <= maxPos; ++i)
+                mBars.elementAt(mProgressBarStartIndex + i * 2 + 1).isBlackBar = false;
+        }
 
-        // set new pos bar to black
-        mProgressBarIndex = mProgressBarStartIndex + pos;
-        if (mProgressBarIndex > mProgressBarEndIndex) mProgressBarIndex = mProgressBarStartIndex;
-        Bar posBar = mBars.elementAt(mProgressBarIndex);
-        posBar.isBlackBar = true;
+        // II-1-1-1-1-1-----II
+        mBars.elementAt(mProgressBarStartIndex + pos * 2 + 1).isBlackBar = true;
+        mPos = pos;
     }
 }
