@@ -80,6 +80,7 @@ public class ITF25ProgressBarView extends View {
         int textColor = ta.getColor(R.styleable.ITF25ProgressBarView_textColor, Color.DKGRAY);
         int barColor = ta.getColor(R.styleable.ITF25ProgressBarView_barColor, Color.BLACK);
         int barHeaderSpaceColor = ta.getColor(R.styleable.ITF25ProgressBarView_barHeaderSpaceColor, Color.YELLOW);
+        mIsVerticalBar = ta.getBoolean(R.styleable.ITF25ProgressBarView_verticalBar, true);
 
         // padding bars
         mBarPaddingHead = ta.getInteger(R.styleable.ITF25ProgressBarView_barPaddingHead, 0);
@@ -249,19 +250,19 @@ public class ITF25ProgressBarView extends View {
             int baseBarWidth = (int)((float)getHeight() / (float)baseBarsCount);
             int top = 0;
             int textHeight = 60;
-            int barHeight = getWidth() - textHeight;
+            int barRight = getWidth();
             int bigBarWidth = baseBarWidth * mBigBarSmallBarWidthRatio;
             for (int i = 0; i < validBars; ++i) {
                 Bar b = mBars.elementAt(i);
                 int width = b.isBigBar ? bigBarWidth : baseBarWidth;
-                canvas.drawRect(0, top, barHeight, top + width , b.isBlackBar ? mBlackPaint : mWhitePaint);
+                canvas.drawRect(textHeight, top, barRight, top + width , b.isBlackBar ? mBlackPaint : mWhitePaint);
                 top += width;
             }
 
             // draw text
-            // int textLeft = barHeight + textHeight / 2 + 20;
-            // int textLeft = baseBarWidth * (EMPTY_LEFT_BIG_BARS * mBigBarSmallBarWidthRatio + 4) + 5;
-            canvas.drawText(posText, 0, 40, mTextPaint);
+            canvas.rotate(90, 20, 40);
+            canvas.drawText(posText, 20, 40, mTextPaint);
+            canvas.rotate(-90, 20, 40);
         }
     }
 

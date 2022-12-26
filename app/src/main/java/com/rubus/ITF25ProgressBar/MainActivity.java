@@ -17,7 +17,7 @@ import java.util.Vector;
 
 public class MainActivity extends AppCompatActivity {
     Switch mSwitchShowBar;
-    BarInterleaved25View mBar25View;
+
     private TextView mScreenUpdateFps;
     private TextView mBarcodeUpdateFps;
 
@@ -32,15 +32,11 @@ public class MainActivity extends AppCompatActivity {
     private int mUpdateBarcodeCount = 0;
 
     private boolean mEnableUpdateCodeBar = false;
-    private int mBarCodeInteger = 0;
 
     // frame callback
     Choreographer.FrameCallback mFrameCallback;
 
     // TextView array of every x frames update
-    Vector<TextView> mEveryXFrameUpdateNumber;
-    int[] mEveryXFrameUpdateEachInteger;
-    int mEveryFrameUpdateDisplayIndex = 0;
     private int mCurrentDrawTextColor = Color.parseColor("#303030");
     private int mDisplayedTextColor = Color.parseColor("#708090");
 
@@ -50,69 +46,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mSeekBarEveryFrames = (SeekBar) findViewById(R.id.seekbar_every_frames);
-        mBar25View = (BarInterleaved25View)findViewById(R.id.bar25code_view);
         mSwitchShowBar = (Switch) findViewById(R.id.switch_show_bar);
         mScreenUpdateFps = (TextView) findViewById(R.id.text_screen_fps);
         mBarcodeUpdateFps = (TextView) findViewById(R.id.text_barcode_update_fps);
         mItf25ProgressBar = (ITF25ProgressBarView)findViewById(R.id.itf25_progress_bar_view);
-
-        mEveryXFrameUpdateNumber = new Vector<TextView>();
-        mEveryXFrameUpdateNumber.add((TextView) findViewById(R.id.tex_every_x_franes_count1));
-        mEveryXFrameUpdateNumber.add((TextView) findViewById(R.id.tex_every_x_franes_count2));
-        mEveryXFrameUpdateNumber.add((TextView) findViewById(R.id.tex_every_x_franes_count3));
-        mEveryXFrameUpdateNumber.add((TextView) findViewById(R.id.tex_every_x_franes_count4));
-        mEveryXFrameUpdateNumber.add((TextView) findViewById(R.id.tex_every_x_franes_count5));
-        mEveryXFrameUpdateNumber.add((TextView) findViewById(R.id.tex_every_x_franes_count6));
-        mEveryXFrameUpdateNumber.add((TextView) findViewById(R.id.tex_every_x_franes_count7));
-        mEveryXFrameUpdateNumber.add((TextView) findViewById(R.id.tex_every_x_franes_count8));
-        mEveryXFrameUpdateNumber.add((TextView) findViewById(R.id.tex_every_x_franes_count9));
-        mEveryXFrameUpdateNumber.add((TextView) findViewById(R.id.tex_every_x_franes_count10));
-
-        mEveryXFrameUpdateNumber.add((TextView) findViewById(R.id.tex_every_x_franes_count11));
-        mEveryXFrameUpdateNumber.add((TextView) findViewById(R.id.tex_every_x_franes_count12));
-        mEveryXFrameUpdateNumber.add((TextView) findViewById(R.id.tex_every_x_franes_count13));
-        mEveryXFrameUpdateNumber.add((TextView) findViewById(R.id.tex_every_x_franes_count14));
-        mEveryXFrameUpdateNumber.add((TextView) findViewById(R.id.tex_every_x_franes_count15));
-        mEveryXFrameUpdateNumber.add((TextView) findViewById(R.id.tex_every_x_franes_count16));
-        mEveryXFrameUpdateNumber.add((TextView) findViewById(R.id.tex_every_x_franes_count17));
-        mEveryXFrameUpdateNumber.add((TextView) findViewById(R.id.tex_every_x_franes_count18));
-        mEveryXFrameUpdateNumber.add((TextView) findViewById(R.id.tex_every_x_franes_count19));
-        mEveryXFrameUpdateNumber.add((TextView) findViewById(R.id.tex_every_x_franes_count20));
-
-        mEveryXFrameUpdateNumber.add((TextView) findViewById(R.id.tex_every_x_franes_count21));
-        mEveryXFrameUpdateNumber.add((TextView) findViewById(R.id.tex_every_x_franes_count22));
-        mEveryXFrameUpdateNumber.add((TextView) findViewById(R.id.tex_every_x_franes_count23));
-        mEveryXFrameUpdateNumber.add((TextView) findViewById(R.id.tex_every_x_franes_count24));
-        mEveryXFrameUpdateNumber.add((TextView) findViewById(R.id.tex_every_x_franes_count25));
-        mEveryXFrameUpdateNumber.add((TextView) findViewById(R.id.tex_every_x_franes_count26));
-        mEveryXFrameUpdateNumber.add((TextView) findViewById(R.id.tex_every_x_franes_count27));
-        mEveryXFrameUpdateNumber.add((TextView) findViewById(R.id.tex_every_x_franes_count28));
-        mEveryXFrameUpdateNumber.add((TextView) findViewById(R.id.tex_every_x_franes_count29));
-        mEveryXFrameUpdateNumber.add((TextView) findViewById(R.id.tex_every_x_franes_count30));
-
-        mEveryXFrameUpdateNumber.add((TextView) findViewById(R.id.tex_every_x_franes_count31));
-        mEveryXFrameUpdateNumber.add((TextView) findViewById(R.id.tex_every_x_franes_count32));
-        mEveryXFrameUpdateNumber.add((TextView) findViewById(R.id.tex_every_x_franes_count33));
-        mEveryXFrameUpdateNumber.add((TextView) findViewById(R.id.tex_every_x_franes_count34));
-        mEveryXFrameUpdateNumber.add((TextView) findViewById(R.id.tex_every_x_franes_count35));
-        mEveryXFrameUpdateNumber.add((TextView) findViewById(R.id.tex_every_x_franes_count36));
-        mEveryXFrameUpdateNumber.add((TextView) findViewById(R.id.tex_every_x_franes_count37));
-        mEveryXFrameUpdateNumber.add((TextView) findViewById(R.id.tex_every_x_franes_count38));
-        mEveryXFrameUpdateNumber.add((TextView) findViewById(R.id.tex_every_x_franes_count39));
-        mEveryXFrameUpdateNumber.add((TextView) findViewById(R.id.tex_every_x_franes_count40));
-
-        mEveryXFrameUpdateNumber.add((TextView) findViewById(R.id.tex_every_x_franes_count41));
-        mEveryXFrameUpdateNumber.add((TextView) findViewById(R.id.tex_every_x_franes_count42));
-        mEveryXFrameUpdateNumber.add((TextView) findViewById(R.id.tex_every_x_franes_count43));
-        mEveryXFrameUpdateNumber.add((TextView) findViewById(R.id.tex_every_x_franes_count44));
-        mEveryXFrameUpdateNumber.add((TextView) findViewById(R.id.tex_every_x_franes_count45));
-        mEveryXFrameUpdateNumber.add((TextView) findViewById(R.id.tex_every_x_franes_count46));
-        mEveryXFrameUpdateNumber.add((TextView) findViewById(R.id.tex_every_x_franes_count47));
-        mEveryXFrameUpdateNumber.add((TextView) findViewById(R.id.tex_every_x_franes_count48));
-        mEveryXFrameUpdateNumber.add((TextView) findViewById(R.id.tex_every_x_franes_count49));
-        // mEveryXFrameUpdateNumber.add((TextView) findViewById(R.id.tex_every_x_franes_count50));
-
-        mEveryXFrameUpdateEachInteger = new int[mEveryXFrameUpdateNumber.size()];
 
         mSwitchShowBar.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -178,9 +115,6 @@ public class MainActivity extends AppCompatActivity {
             mItf25ProgressBar.SetProgressBarIncreaseOne();
             mItf25ProgressBar.InvalidateView();
 
-            // update barcode
-            mBar25View.SetBarNumber(++mBarCodeInteger);
-            mBar25View.InvalidateView();
             mUpdateBarcodeCount++;
 
             // update every x frames update
@@ -189,30 +123,5 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void OnEveryXFramesUpdate() {
-        boolean displayEachCx = true;
-        if (displayEachCx) {
-            int index = mEveryFrameUpdateDisplayIndex % mEveryXFrameUpdateNumber.size();
-            mEveryXFrameUpdateEachInteger[index]++;
-            int val = mEveryXFrameUpdateEachInteger[index];
-
-            TextView txtView = mEveryXFrameUpdateNumber.elementAt(index);
-            // String z = String.format("%d", val);
-            String z = String.format("%d", mEveryFrameUpdateDisplayIndex);
-            txtView.setTextColor(mCurrentDrawTextColor);
-            txtView.setText(z);
-
-            // last text view
-            TextView lastTxtView = mEveryXFrameUpdateNumber.elementAt(index == 0 ? mEveryXFrameUpdateNumber.size() - 1 : index - 1);
-            String s1 = lastTxtView.getText().toString();
-            lastTxtView.setTextColor(mDisplayedTextColor);
-
-            mEveryFrameUpdateDisplayIndex++;
-            if (mEveryFrameUpdateDisplayIndex > 9999) mEveryFrameUpdateDisplayIndex = 0;
-        } else {
-            int index = mUpdateBarcodeCount % mEveryXFrameUpdateNumber.size();
-            TextView txtView = mEveryXFrameUpdateNumber.elementAt(index);
-            String z = String.format("%d", mUpdateBarcodeCount);
-            txtView.setText(z);
-        }
     }
 }

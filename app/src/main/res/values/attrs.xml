@@ -10,5 +10,6 @@
         <attr name="barPaddingBarColor" format="color" />
         <attr name="barPaddingHead" format="integer" />
         <attr name="barPaddingTail" format="integer" />
+		<attr name="verticalBar" format="boolean" />
     </declare-styleable>
 </resources>
