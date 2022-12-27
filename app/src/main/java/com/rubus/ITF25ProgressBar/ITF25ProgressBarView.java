@@ -244,7 +244,7 @@ public class ITF25ProgressBarView extends View {
 
             // draw text
             int textLeft = baseBarWidth * (EMPTY_LEFT_BIG_BARS * mBigBarSmallBarWidthRatio + 4) + 5;
-            canvas.drawText(posText, textLeft, mBarPaddingHead + barHeight + mBarPaddingTail + textHeight / 2 + 20, mTextPaint);
+            canvas.drawText(posText, textLeft, mBarPaddingHead + barHeight + mBarPaddingTail + textHeight / 2 + 10, mTextPaint);
         } else {
             // horizontal bars
             int baseBarWidth = (int)((float)getHeight() / (float)baseBarsCount);
